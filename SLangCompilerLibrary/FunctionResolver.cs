@@ -6,6 +6,9 @@ namespace SLangCompilerLibrary
 {
     public class FunctionResolver
     {
-        public FunctionResolver(Seq<Function> funcScope) {}
+        public FunctionResolver(Seq<Function<string>> funcScope)
+        {
+            
+        }
     }
 }

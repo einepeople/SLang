@@ -59,24 +59,25 @@ namespace SLangCompilerLibrary.DataStructures
             }
         }
 
-        public Arr<TID> traverseUp(TID start)
+        public Set<TID> traverseUp(TID start)
         {
             if (hier.ContainsKey(start))
             {
-                Arr<TID> ret = Arr.create(start);
-                return hier[start].parents.Some(v => v.Fold(ret,(arr,tid) => arr.AddRange(traverseUp(tid)))).None(() => ret);
+                Set<TID> ret = Set(start);
+                return hier[start].parents.Some(v => v.Fold(ret,(arr,tid) => arr.AddOrUpdateRange(traverseUp(tid)))).None(() => ret);
             }
             else
             {
                 throw new MalformedInheritanceHierarchyError($" TID {start} was not found in hierarchy while traversing up");
             }
         }
-        public Arr<TID> traverseDown(TID start)
+        public Set<TID> traverseDown(TID start)
         {
+            Console.WriteLine(start);
             if (hier.ContainsKey(start))
             {
-                Arr<TID> ret = Arr.create(start);
-                return hier[start].childrens.Some(v => v.Fold(ret, (arr, tid) => arr.AddRange(traverseDown(tid)))).None(() => ret);
+                Set<TID> ret = Set(start);
+                return hier[start].childrens.Some(v => v.Fold(ret, (arr, tid) => arr.AddOrUpdateRange(traverseDown(tid)))).None(() => ret);
             }
             else
             {

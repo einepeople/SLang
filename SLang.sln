@@ -5,12 +5,14 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLangCompilerLibrary", "SLangCompilerLibrary\SLangCompilerLibrary.csproj", "{55F99728-BA08-4A9F-89D9-D36EA14AEE8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLangCompilerLibrarySpec", "SLangCompilerLibrarySpec\SLangCompilerLibrarySpec.csproj", "{13DE3DAB-16C1-4EE1-9638-59A05FA557BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SLangCompilerLibrarySpec", "SLangCompilerLibrarySpec\SLangCompilerLibrarySpec.csproj", "{13DE3DAB-16C1-4EE1-9638-59A05FA557BD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{910A8DDA-67B9-4A8D-9F0D-49ECB793E224}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground", "Playground\Playground.csproj", "{5B2CBC40-90A1-4C82-8C6D-211F5EA5B8D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{13DE3DAB-16C1-4EE1-9638-59A05FA557BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13DE3DAB-16C1-4EE1-9638-59A05FA557BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13DE3DAB-16C1-4EE1-9638-59A05FA557BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B2CBC40-90A1-4C82-8C6D-211F5EA5B8D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B2CBC40-90A1-4C82-8C6D-211F5EA5B8D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B2CBC40-90A1-4C82-8C6D-211F5EA5B8D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B2CBC40-90A1-4C82-8C6D-211F5EA5B8D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
