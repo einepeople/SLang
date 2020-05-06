@@ -10,40 +10,40 @@ using SLangCompilerLibrary.Utils;
 
 namespace SLangCompilerLibrary.DataStructures
 {
-    public class InheritanceHierarchy<TID>
+    public class InheritanceHierarchy
     {
         private class Entry
         {
-            public Option<Arr<TID>> parents;
-            public Option<Arr<TID>> childrens;
+            public Option<Arr<string>> parents;
+            public Option<Arr<string>> childrens;
 
-            public Entry(Option<Arr<TID>> parents, Option<Arr<TID>> childrens)
+            public Entry(Option<Arr<string>> parents, Option<Arr<string>> childrens)
             {
                 this.parents = parents;
                 this.childrens = childrens;
             }
 
-            public Entry addChild(TID child)
+            public Entry addChild(string child)
             {
-                Arr<TID> newChilds = this.childrens.Some(
+                Arr<string> newChilds = this.childrens.Some(
                         c => c.Add(child))
                     .None(() => Arr.create(child));
                 return new Entry(this.parents, Some(newChilds));
             }
         }
 
-        Map<TID, Entry> hier;
+        Map<string, Entry> hier;
 
-        public InheritanceHierarchy(Arr<IType<TID>> types)
+        public InheritanceHierarchy(Arr<IType> types)
         {
-            hier = new Map<TID, Entry>(types.Map(type => (type.name(), new Entry(getParentsTIDs(type), None))));
-            foreach (IType<TID> type in types)
+            hier = new Map<string, Entry>(types.Map(type => (type.name(), new Entry(getParentsTIDs(type), None))));
+            foreach (IType type in types)
             {
                 (from x in type.parents() select x).IfSome(pars =>
                 {
-                    foreach (IType<TID> parent in pars)
+                    foreach (IType parent in pars)
                     {
-                        TID pname = parent.name();
+                        string pname = parent.name();
                         if (hier.ContainsKey(pname))
                         {
                             hier = hier.AddOrUpdate(pname, hier[pname].addChild(type.name()));
@@ -59,11 +59,11 @@ namespace SLangCompilerLibrary.DataStructures
             }
         }
 
-        public Set<TID> traverseUp(TID start)
+        public Set<string> traverseUp(string start)
         {
             if (hier.ContainsKey(start))
             {
-                Set<TID> ret = Set(start);
+                Set<string> ret = Set(start);
                 return hier[start].parents.Some(v => v.Fold(ret,(arr,tid) => arr.AddOrUpdateRange(traverseUp(tid)))).None(() => ret);
             }
             else
@@ -71,11 +71,11 @@ namespace SLangCompilerLibrary.DataStructures
                 throw new MalformedInheritanceHierarchyError($" TID {start} was not found in hierarchy while traversing up");
             }
         }
-        public Set<TID> traverseDown(TID start)
+        public Set<string> traverseDown(string start)
         {
             if (hier.ContainsKey(start))
             {
-                Set<TID> ret = Set(start);
+                Set<string> ret = Set(start);
                 return hier[start].childrens.Some(v => v.Fold(ret, (arr, tid) => arr.AddOrUpdateRange(traverseDown(tid)))).None(() => ret);
             }
             else
@@ -83,7 +83,7 @@ namespace SLangCompilerLibrary.DataStructures
                 throw new MalformedInheritanceHierarchyError($" TID {start} was not found in hierarchy while traversing down");
             }
         }
-        private Option<Arr<TID>> getParentsTIDs(IType<TID> type)
+        private Option<Arr<string>> getParentsTIDs(IType type)
         {
             return from x in type.parents() select x.Map(t => t.name());
         }

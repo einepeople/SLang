@@ -7,16 +7,16 @@ using LanguageExt.DataTypes;
 
 namespace SLangCompilerLibrary.Types
 {
-    public class Function<ID>
+    public class Function
     {
-        private Seq<IType<ID>> I { get; }
-        private Seq<IType<ID>> O { get; }
-        private long fptr { get; } 
-        public Function(Seq<IType<ID>> inputTypes, Seq<IType<ID>> outputTypes, long fptr)
+        public Seq<IType> I { get; }
+        public Seq<IType> O { get; }
+        public string name { get; } 
+        public Function(Seq<IType> inputTypes, Seq<IType> outputTypes, string fname)
         {
             I = inputTypes;
             O = outputTypes;
-            this.fptr = fptr;
+            name = fname;
         }
     }
 }

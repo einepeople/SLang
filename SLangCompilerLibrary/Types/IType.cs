@@ -6,22 +6,22 @@ using System.Text;
 namespace SLangCompilerLibrary.Types
 {
 
-    public interface IType<ID>
+    public interface IType
     {
-        ID name();
-        Option<Arr<IType<ID>>> parents();
+        string name();
+        Option<Arr<IType>> parents();
     }
 
-    public class DummyType: IType<string>
+    public class DummyType: IType
     {
         private readonly string typename;
-        private readonly Option<Arr<IType<string>>> parents_;
-        public DummyType(string typeName, Option<Arr<IType<string>>> parents)
+        private readonly Option<Arr<IType>> parents_;
+        public DummyType(string typeName, Option<Arr<IType>> parents)
         {
             this.typename = typeName;
             this.parents_ = parents;
         }
         public string name() => this.typename;
-        public Option<Arr<IType<string>>> parents() => this.parents_;
+        public Option<Arr<IType>> parents() => this.parents_;
     }
 }
