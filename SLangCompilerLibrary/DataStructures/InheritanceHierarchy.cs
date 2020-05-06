@@ -73,7 +73,6 @@ namespace SLangCompilerLibrary.DataStructures
         }
         public Set<TID> traverseDown(TID start)
         {
-            Console.WriteLine(start);
             if (hier.ContainsKey(start))
             {
                 Set<TID> ret = Set(start);

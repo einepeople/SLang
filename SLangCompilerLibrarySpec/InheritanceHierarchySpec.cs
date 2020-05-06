@@ -13,13 +13,23 @@ namespace SLangCompilerLibrarySpec
     [TestClass]
     public class InheritanceHierarchySpec
     {
+        [TestMethod]
+        public void TraverseDownLeaf()
+        {
+            InheritanceHierarchy<string> ih = init();
+
+            var res = ih.traverseDown("G");
+
+            Assert.AreEqual(res, Set("G"));
+        }
+
         public InheritanceHierarchy<string> init()
         {
             DummyType A = new DummyType("A", None);
             DummyType B = new DummyType("B", Some(Arr.create<IType<string>>(A)));
             DummyType C = new DummyType("C", Some(Arr.create<IType<string>>(A)));
             DummyType D = new DummyType("D", Some(Arr.create<IType<string>>(B, C)));
-            DummyType E = new DummyType("D", Some(Arr.create<IType<string>>(D)));
+            DummyType E = new DummyType("E", Some(Arr.create<IType<string>>(D)));
             DummyType F = new DummyType("F", None);
             DummyType G = new DummyType("G", Some(Arr.create<IType<string>>(F)));
             return new InheritanceHierarchy<string>(Arr.create<IType<string>>(A, B, C, D, E, F, G));
@@ -35,15 +45,7 @@ namespace SLangCompilerLibrarySpec
             Assert.AreEqual(res,Set("A"));
         }
         
-        [TestMethod]
-        public void TraverseDownLeaf()
-        {
-            InheritanceHierarchy<string> ih = init();
 
-            var res = ih.traverseDown("F");
-
-            Assert.AreEqual(res, Set("F"));
-        }
 
         [TestMethod]
         public void TraverseUpDiamond()
