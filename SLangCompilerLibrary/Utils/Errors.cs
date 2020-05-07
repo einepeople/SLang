@@ -15,4 +15,16 @@ namespace SLangCompilerLibrary.Utils
         {
         }
     }
+
+    public class FunctionResolutionError : Exception
+    {
+        public FunctionResolutionError()
+        {
+        }
+
+        public FunctionResolutionError(string message)
+            : base(message)
+        {
+        }
+    }
 }

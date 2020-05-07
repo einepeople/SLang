@@ -10,6 +10,9 @@ using SLangCompilerLibrary.Utils;
 
 namespace SLangCompilerLibrary.DataStructures
 {
+    // Represents a graph-ish structure with traversal capabilities
+    // Main purpose - to be able to collect all the direct and indirect parents or childrens of a type given the type
+    // Used for dynamic dispatch function resolution
     public class InheritanceHierarchy
     {
         private class Entry
@@ -34,6 +37,9 @@ namespace SLangCompilerLibrary.DataStructures
 
         Map<string, Entry> hier;
 
+        // Initilized with types and their DIRECT parents. Easily inferenceable from `class A: B, C`
+        // Firstly fill `hier` mapping with given information, leaving childrens field as `None`
+        // After that traversing through input, filling the childrens fields.
         public InheritanceHierarchy(Arr<IType> types)
         {
             hier = new Map<string, Entry>(types.Map(type => (type.name(), new Entry(getParentsTIDs(type), None))));
@@ -58,7 +64,7 @@ namespace SLangCompilerLibrary.DataStructures
                 });
             }
         }
-
+        // Given type identifier (==name), find all its parents
         public Set<string> traverseUp(string start)
         {
             if (hier.ContainsKey(start))
@@ -71,6 +77,7 @@ namespace SLangCompilerLibrary.DataStructures
                 throw new MalformedInheritanceHierarchyError($" TID {start} was not found in hierarchy while traversing up");
             }
         }
+        // Given type identifier (==name), find all its childrens
         public Set<string> traverseDown(string start)
         {
             if (hier.ContainsKey(start))
